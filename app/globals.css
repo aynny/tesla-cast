@@ -130,3 +130,5 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
 .station-link:disabled{opacity:.55;cursor:not-allowed}
 @media(max-width:850px){.video-results-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.video-results-grid{grid-template-columns:1fr}.result-copy strong{font-size:16px}}
+
+.spotify-player-area{margin:24px 0}.spotify-player-area iframe{display:block;border:0;border-radius:12px;max-width:100%}.spotify-player-area>p{color:#bdc7d5;line-height:1.7}.spotify-placeholder{padding:32px 20px;border:1px solid #303744;border-radius:16px;background:#202630;text-align:center}.spotify-placeholder>svg{color:#1ed760}.spotify-placeholder p{line-height:1.8;color:#bdc7d5}.spotify-placeholder .station-link{display:inline-flex;margin-top:12px}

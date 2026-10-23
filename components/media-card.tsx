@@ -6,7 +6,7 @@ const media = [
   { id: "netflix", name: "Netflix", category: "MOVIES & SERIES", description: "次の物語に、出会おう。", href: "https://www.netflix.com/" },
   { id: "tver", name: "TVer", category: "TV ON DEMAND", description: "見逃した番組を、ここから。", href: "https://tver.jp/" },
   { id: "tv", name: "地上波テレビ", category: "LOCAL CHANNELS", description: "いつもの関西を、この画面で。", href: "/tv" },
-  { id: "spotify", name: "Spotify", category: "MUSIC & PODCASTS", description: "この時間に、ぴったりの音を。", href: "https://open.spotify.com/" },
+  { id: "spotify", name: "Spotify", category: "MUSIC & PODCASTS", description: "この時間に、ぴったりの音を。", href: "/spotify" },
 ];
 export function MediaCards() {
   return <nav className="media-grid" aria-label="メディアを選ぶ">{media.map((item, i) => {
@@ -17,7 +17,7 @@ export function MediaCards() {
         {item.id === "tver" && <span className="tver-letter">TVer<span>↗</span></span>}
         {item.id === "tv" && <Tv size={53} strokeWidth={1.5} />}
         {item.id === "spotify" && <span className="spotify-icon"><AudioLines size={40} strokeWidth={2.1} /></span>}
-      </div><div className="card-copy"><span className="eyebrow">{item.category}</span><h2>{item.name}</h2><p>{item.description}</p></div><div className="card-bottom"><span>{item.id === "tv" ? "関西の放送局を見る" : item.id === "youtube" ? "サイト内で動画を見る" : "公式サイトを開く"}</span>{item.id === "tv" ? <span className="mini-badge">12局</span> : item.id === "youtube" ? <ArrowRight size={16} aria-hidden="true" /> : <ArrowUpRight size={16} aria-hidden="true" />}</div></>;
+      </div><div className="card-copy"><span className="eyebrow">{item.category}</span><h2>{item.name}</h2><p>{item.description}</p></div><div className="card-bottom"><span>{item.id === "tv" ? "関西の放送局を見る" : item.id === "youtube" ? "サイト内で動画を見る" : item.id === "spotify" ? "サイト内で音楽を聴く" : "公式サイトを開く"}</span>{item.id === "tv" ? <span className="mini-badge">12局</span> : item.href.startsWith("/") ? <ArrowRight size={16} aria-hidden="true" /> : <ArrowUpRight size={16} aria-hidden="true" />}</div></>;
     return item.href.startsWith("/") ? <Link key={item.id} href={item.href} className="media-card">{content}</Link> : <a key={item.id} href={item.href} className="media-card">{content}</a>;
   })}</nav>;
 }

@@ -26,7 +26,7 @@ export function DeviceLink() {
   return <details className="device-guide">
     <summary><Smartphone size={18} aria-hidden="true" />スマホ・タブレットで使う</summary>
     <div className="device-guide-body">
-      <p>助手席の方の端末でこのサイトを開き、メディアを選んでください。YouTubeは動画URLからサイト内で再生できます。検索対応版では検索結果からも選べます。その他の視聴は移動先の公式サイトやアプリで行います。</p>
+      <p>助手席の方の端末でこのサイトを開き、メディアを選んでください。YouTubeは動画URLからサイト内で再生できます。検索対応版では検索結果からも選べます。Spotifyも共有URLからサイト内で聴けます。その他の視聴は移動先の公式サイトやアプリで行います。</p>
       <button type="button" className="station-link" onClick={copyLink}><Copy size={17} aria-hidden="true" />このサイトのリンクをコピー</button>
       <p role="status" aria-live="polite">{message}</p>
       {manualUrl && <label className="manual-url">このサイトのURL<input readOnly value={manualUrl} onFocus={event => event.currentTarget.select()} /></label>}
