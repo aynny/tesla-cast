@@ -1,3 +1,10 @@
+# 公開先
+
+- 検索対応版：https://tesla-cast.vercel.app/youtube
+- GitHub Pages簡易版：https://aynny.github.io/tesla-cast/
+
+検索対応版はVercelで通常のNext.jsアプリとして公開します。`YOUTUBE_API_KEY` はVercelのProduction Secretとして設定し、ソースには含めません。GitHub PagesのYouTube画面にも検索対応版へのリンクがあります。以下の作業記録には公開前の検証内容も含まれます。
+
 # TESLA Cast — 関西版
 
 Your entertainment. One screen.

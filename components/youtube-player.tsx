@@ -63,7 +63,7 @@ export function YouTubePlayer({ searchEnabled }: { searchEnabled: boolean }) {
   }
 
   return <section className="youtube-watch" aria-label="YouTube視聴">
-    {pages ? <div className="youtube-form"><h2>動画URLから、この画面で再生</h2><p>GitHub Pages簡易版です。サイト内のキーワード検索には対応していません。YouTubeで動画の共有リンクをコピーし、下の入力欄に貼り付けてください。</p><a className="station-link" href="https://www.youtube.com/">YouTube公式サイトで探す</a></div> : <form onSubmit={event => { event.preventDefault(); void search(); }} className="youtube-form" role="search" aria-label="YouTube動画検索">
+    {pages ? <div className="youtube-form"><h2>動画URLから、この画面で再生</h2><p>キーワードで探す場合は、検索対応版を開いてください。このページでは動画URLから再生できます。</p><a className="station-link" href="https://tesla-cast.vercel.app/youtube">検索対応版を開く</a></div> : <form onSubmit={event => { event.preventDefault(); void search(); }} className="youtube-form" role="search" aria-label="YouTube動画検索">
       <label htmlFor="youtube-search">YouTubeで動画を探す</label>
       <div className="youtube-input-row"><input id="youtube-search" value={query} onChange={event => setQuery(event.target.value)} maxLength={100} placeholder="動画名、アーティスト、気になるキーワード" enterKeyHint="search" aria-describedby="search-help" />
         <button type="submit" className="station-link" disabled={busy || !searchEnabled}><Search size={18} aria-hidden="true" />{busy ? '検索中…' : '検索'}</button></div>

@@ -2,6 +2,8 @@
 !.env.example
 .git
 .next
+out-pages
+out
 node_modules
 test-results
 *.tsbuildinfo
