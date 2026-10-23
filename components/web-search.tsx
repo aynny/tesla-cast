@@ -9,6 +9,11 @@ export function WebSearch() {
   const [results, setResults] = useState<WebResult[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [viewing, setViewing] = useState<WebResult | null>(null);
+  const viewer = useRef<HTMLDialogElement | null>(null);
+  useEffect(() => {
+    if (viewing && viewer.current && !viewer.current.open) viewer.current.showModal();
+  }, [viewing]);
   const pending = useRef<AbortController | null>(null);
   useEffect(() => {
     if (pages) return;
@@ -46,7 +51,16 @@ export function WebSearch() {
     {enabled === false && <p className="search-setup">サイト内検索は準備中です。Tavily APIの設定後に利用できます。</p>}
     {error && <p className="youtube-error" role="alert">{error}</p>}
     <p role="status">{busy ? '検索中…' : searched ? `「${searched}」の検索結果：${results.length}件` : ''}</p>
-    <ol className="web-results">{results.map(result => <li key={result.url}><span>{result.hostname}</span><h2><a href={result.url} rel="noreferrer">{result.title}</a></h2><p>{result.description}</p></li>)}</ol>
-    <div className="youtube-notes"><p>検索結果はTavilyが提供します。検索語はTavilyへ送信されます。リンク先は同じタブで開き、ブラウザの戻る操作で戻れます。リンク先サイトをこの画面に埋め込む機能ではありません。</p><a href="https://www.tavily.com/">検索提供元：Tavily</a></div>
+    <ol className="web-results">{results.map(result => <li key={result.url}><span>{result.hostname}</span><h2><a href={result.url} rel="noreferrer" onClick={event => { if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return; event.preventDefault(); setViewing(result); }}>{result.title}</a></h2><p>{result.description}</p></li>)}</ol>
+    <dialog ref={viewer} className="web-viewer" onClose={() => setViewing(null)} aria-labelledby="viewer-title">
+      {viewing && <>
+        <div className="web-viewer-toolbar"><button autoFocus className="station-link" onClick={() => viewer.current?.close()}>検索結果に戻る</button><div><h2 id="viewer-title">{viewing.title}</h2><p>開いたリンク：{viewing.hostname}</p></div><a className="station-link" href={viewing.url} rel="noreferrer">公式サイトを開く</a></div>
+        <p className="web-viewer-notice">外部サイトを表示しています。白い画面や接続拒否が出る場合、サイト側の埋め込み制限などにより表示できません。「公式サイトを開く」をご利用ください。</p>
+        {viewing.url.startsWith('https:') && new URL(viewing.url).origin !== window.location.origin
+          ? <iframe key={viewing.url} src={viewing.url} title={`${viewing.title}（外部サイト）`} sandbox="allow-scripts allow-same-origin allow-forms" referrerPolicy="no-referrer" />
+          : <p className="web-viewer-notice">このリンクはサイト内表示に対応していません。公式サイトを開いてください。</p>}
+      </>}
+    </dialog>
+    <div className="youtube-notes"><p>検索結果はTavilyが提供します。検索語はTavilyへ送信されます。検索結果を選ぶとサイト内の閲覧画面で開きます。埋め込みに対応しないサイトは「公式サイトを開く」で移動できます。</p><a href="https://www.tavily.com/">検索提供元：Tavily</a></div>
   </section>;
 }
