@@ -228,3 +228,13 @@ GitHub Pages版のローカル検証：`npm run build:pages` 成功（型チェ�
 `/spotify` でSpotifyの共有URLを入力すると公式埋め込みプレーヤーを表示します。曲・アルバム・プレイリスト・アーティスト・番組・エピソードに対応。HTTPSの `open.spotify.com` と正しいコンテンツIDだけを許可し、追跡パラメータを除去します。短縮URLは公式サイトで開いた後のURLを入力してください。APIキー不要、URLの保存なし、自動再生なし。フル再生可否はSpotify側の条件によります。歌詞・曲名検索は未対応です。Tesla実車と実音声再生は未検証。
 
 Spotify追加後の自動テストは10件成功。公式仕様：https://developer.spotify.com/documentation/embeds
+
+## Spotifyログイン・Web Playback SDK
+
+Vercel版の `/spotify` に公式OAuth（Authorization Code + PKCE S256）ログイン、曲名検索、選択した曲の再生、一時停止、曲送り、接続解除を追加。Premium（Student含む）が必要です。Client IDは公開識別子としてソースに含めます。Client Secretは使用しません。
+
+Spotify DashboardでRedirect URIを **https://tesla-cast.vercel.app/spotify/callback** と完全一致で登録してください。Development Modeでは利用するアカウントをDashboardの利用ユーザー管理に登録する必要がある場合があります。Spotify側のAPI利用条件・ユーザー数制限に従います。
+
+認証情報はタブ内のsessionStorageにのみ保存。10分有効のランダムstate・PKCE検証、期限前のトークン更新、接続解除後の進行中リクエストの保存防止に対応。SDKとAPIへブラウザから直接通信します。アプリサーバーはトークンを保存しません。接続解除はローカルの認証を削除するもので、Spotify側の許可はSpotifyのアプリ管理から取り消せます。データの扱いは `/spotify/privacy` に記載。
+
+GitHub Pages版では認証の戻り先を統一するためVercel版へ案内します。共有URLの埋め込みは引き続き利用可能です。自動テスト12件と型チェック成功。ユーザー本人のログイン・Premiumでの実音声再生・Tesla実車動作は未検証です。
