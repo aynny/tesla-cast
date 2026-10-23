@@ -238,3 +238,13 @@ Spotify DashboardでRedirect URIを **https://tesla-cast.vercel.app/spotify/call
 認証情報はタブ内のsessionStorageにのみ保存。10分有効のランダムstate・PKCE検証、期限前のトークン更新、接続解除後の進行中リクエストの保存防止に対応。SDKとAPIへブラウザから直接通信します。アプリサーバーはトークンを保存しません。接続解除はローカルの認証を削除するもので、Spotify側の許可はSpotifyのアプリ管理から取り消せます。データの扱いは `/spotify/privacy` に記載。
 
 GitHub Pages版では認証の戻り先を統一するためVercel版へ案内します。共有URLの埋め込みは引き続き利用可能です。自動テスト12件と型チェック成功。ユーザー本人のログイン・Premiumでの実音声再生・Tesla実車動作は未検証です。
+
+## Brave Web検索
+
+`/search` にBrave Web Search APIの検索画面を追加。ホームの「BraveでWeb検索」から利用します。APIキー未設定時は準備中と表示します。Brave自体のサイトをiframeで表示するものではありません。検索結果を表示し、リンク先は同じタブで開きます。
+
+Brave API Dashboardでプラン条件・料金・上限を確認し、ユーザー本人がプランを有効化してキーを発行してください。VercelのProduction環境変数 `BRAVE_SEARCH_API_KEY` にSecretとして登録し、再デプロイすると有効になります。キーをGitHubやチャットに貼らないでください。GitHub Pages版はVercel版へのリンクを表示します。
+
+クエリ・ページ番号の検証、HTTP(S)以外や認証情報入りのリンク除外、Reactによるテキスト表示、タイムアウト、上流エラー秘匿に対応。検索結果・検索語はアプリで永続保存しません。プロセス単位の1分20リクエスト制限は補助的なもので、分散環境全体の料金上限を保証しません。Brave側で利用上限を設定してください。検索語はBraveへ送信され、ホスト側のアクセスログに記録される場合があります。
+
+型チェック・自動テスト14件成功。Brave実APIの検索はAPIキー登録後に検証が必要です。公式設定案内：https://api-dashboard.search.brave.com/documentation/quickstart
