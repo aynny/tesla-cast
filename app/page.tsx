@@ -7,7 +7,7 @@ export default function Home() {
     <div className="hero"><div className="section-kicker"><span /> YOUR ENTERTAINMENT, WITH YOU</div><h1>Your entertainment.<br /><span>One screen.</span></h1><p>助手席のスマホでも、駐車中の車内でも。</p></div>
     <div className="section-label"><span>メディアを選ぶ</span><span>SELECT YOUR NEXT MOMENT</span></div><MediaCards />
     <div className="below-cards"><p>YouTubeはサイト内で再生。その他のメディアは公式サービスへ。</p><UsageNote /></div>
-    <Link className="station-link web-search-link" href="/search">BraveでWeb検索</Link>
+    <Link className="station-link web-search-link" href="/search">Web検索</Link>
     <DeviceLink />
   </main><Footer /></div>;
 }

@@ -239,12 +239,10 @@ Spotify DashboardでRedirect URIを **https://tesla-cast.vercel.app/spotify/call
 
 GitHub Pages版では認証の戻り先を統一するためVercel版へ案内します。共有URLの埋め込みは引き続き利用可能です。自動テスト12件と型チェック成功。ユーザー本人のログイン・Premiumでの実音声再生・Tesla実車動作は未検証です。
 
-## Brave Web検索
+## Web検索（Tavily）
 
-`/search` にBrave Web Search APIの検索画面を追加。ホームの「BraveでWeb検索」から利用します。APIキー未設定時は準備中と表示します。Brave自体のサイトをiframeで表示するものではありません。検索結果を表示し、リンク先は同じタブで開きます。
+`/search` はTavilyの検索結果をサイト内に表示します。VercelのProduction環境変数 `TAVILY_API_KEY` にキーを登録し、再デプロイしてください。キーを公開コードやチャットに貼らないでください。GitHub PagesはVercel版へ誘導します。
 
-Brave API Dashboardでプラン条件・料金・上限を確認し、ユーザー本人がプランを有効化してキーを発行してください。VercelのProduction環境変数 `BRAVE_SEARCH_API_KEY` にSecretとして登録し、再デプロイすると有効になります。キーをGitHubやチャットに貼らないでください。GitHub Pages版はVercel版へのリンクを表示します。
+basic検索・auto_parameters無効に固定し、1検索1クレジットで利用します。Freeプランは月1,000クレジット。課金を避けるにはTavilyで有料プラン・従量課金を有効化しないでください。無料枠は利用者全体で共有します。プロセス単位20回/分の制限は補助的であり、分散環境全体の上限を保証しません。
 
-クエリ・ページ番号の検証、HTTP(S)以外や認証情報入りのリンク除外、Reactによるテキスト表示、タイムアウト、上流エラー秘匿に対応。検索結果・検索語はアプリで永続保存しません。プロセス単位の1分20リクエスト制限は補助的なもので、分散環境全体の料金上限を保証しません。Brave側で利用上限を設定してください。検索語はBraveへ送信され、ホスト側のアクセスログに記録される場合があります。
-
-型チェック・自動テスト14件成功。Brave実APIの検索はAPIキー登録後に検証が必要です。公式設定案内：https://api-dashboard.search.brave.com/documentation/quickstart
+検索語はTavilyへ送信されます。結果・検索語はアプリで永続保存しません。リンクは同じタブで外部サイトへ移動します。ページ送りはありません。APIキー登録後の実検索は別途確認が必要です。
