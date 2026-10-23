@@ -8,7 +8,7 @@ export function Header({ tv = false }: { tv?: boolean }) {
   </header>;
 }
 export function Footer() {
-  return <footer className="footer"><div><CircleParking size={18} aria-hidden="true" /><span>車載画面での動画は駐車中に</span></div><span>非公式・個人向けプロトタイプ <span className="footer-separator">/</span> Tesla, Inc.とは無関係です</span></footer>;
+  return <footer className="footer"><div><CircleParking size={18} aria-hidden="true" /><span>車載画面での動画は駐車中に</span><Link className="station-link" href="/diagnostics">再生診断</Link></div><span>非公式・個人向けプロトタイプ <span className="footer-separator">/</span> Tesla, Inc.とは無関係です</span></footer>;
 }
 export function UsageNote() {
   return <details className="usage"><summary>ご利用について</summary><div className="usage-body">

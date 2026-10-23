@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
-import { Play, Search, X } from 'lucide-react';
+import { Play, Search } from 'lucide-react';
+import { YoutubeSurface } from '@/components/youtube-surface';
 import { youtubeVideoId } from '@/lib/youtube';
 import type { SearchResults, SearchVideo } from '@/lib/youtube-search';
 
@@ -74,11 +75,7 @@ export function YouTubePlayer({ searchEnabled }: { searchEnabled: boolean }) {
 
     <div ref={playerArea} tabIndex={-1} className="youtube-player-area" aria-label="動画プレーヤー">
       {videoId && <h2 className="playing-title">{title}</h2>}
-      <div className="youtube-frame">
-        {videoId ? <iframe key={`${videoId}-${revision}`} src={`https://www.youtube.com/embed/${videoId}?playsinline=1&autoplay=0`} title={`YouTube公式プレーヤー：${title}`} allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /> :
-          <div className="youtube-empty"><Play size={40} aria-hidden="true" /><h2>{pages ? "好きな動画を、この画面で。" : "見つけて、タップして、楽しもう。"}</h2><p>{pages ? "下の欄に動画URLを入力すると、ここに表示されます。" : "検索結果から動画を選ぶと、ここに表示されます。"}</p></div>}
-      </div>
-      {videoId && <div className="youtube-controls"><p role="status">プレーヤー内の再生ボタンを押してください。</p><button type="button" className="station-link" onClick={() => { setVideoId(null); setError(''); }}><X size={18} aria-hidden="true" />動画を閉じる</button></div>}
+      {videoId ? <YoutubeSurface key={`${videoId}-${revision}`} videoId={videoId} title={title} onClose={() => { setVideoId(null); setError(''); }} /> : <div className="youtube-frame"><div className="youtube-empty"><Play size={40} aria-hidden="true" /><h2>好きな動画を、この画面で。</h2><p>検索結果または動画URLから動画を選んでください。</p></div></div>}
     </div>
 
     <section className="youtube-results" aria-label="YouTube検索結果" aria-busy={busy}>
